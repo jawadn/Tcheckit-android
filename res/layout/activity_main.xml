@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <fragment
+        android:id="@+id/fragment1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="125dp"
+        class="com.google.android.gms.maps.SupportMapFragment" />
+
+    <com.tcheckit.ExtendedSlidingDrawer
+        android:id="@+id/drawer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="55dp"
+        android:alwaysDrawnWithCache="true"
+        android:background="@android:color/transparent"
+        android:bottomOffset="-60dp"
+        android:content="@+id/content"
+        android:handle="@+id/handle" >
+
+        <ImageView
+            android:id="@id/handle"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:adjustViewBounds="false"
+            android:background="@drawable/sliding_up"
+            android:contentDescription="@string/normal_tray" />
+
+        <RelativeLayout
+            android:id="@id/content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/bg3"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/listviewperso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="#FFFFFF"
+                android:dividerHeight="2dp"
+                android:scrollbars="vertical" >
+            </ListView>
+
+            <LinearLayout
+                android:id="@+id/missionlayout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/bg3"
+                android:orientation="vertical"
+                android:visibility="invisible" >
+
+                <include layout="@layout/affichageitem" />
+
+                <include layout="@layout/activity_mission_menu" />
+
+                <ScrollView
+                    android:id="@+id/scrollcontenumissionlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <LinearLayout
+                        android:id="@+id/contenumissionlayout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:isScrollContainer="true"
+                        android:orientation="vertical" >
+                    </LinearLayout>
+                </ScrollView>
+
+                <ScrollView
+                    android:id="@+id/scrolldescriptionmissionlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <LinearLayout
+                        android:id="@+id/descriptionmissionlayout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:isScrollContainer="true"
+                        android:orientation="vertical" >
+                    </LinearLayout>
+                </ScrollView>
+
+                <ScrollView
+                    android:id="@+id/scrollquestionnairemissionlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <LinearLayout
+                        android:id="@+id/questionnairemissionlayout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:isScrollContainer="true"
+                        android:orientation="vertical"
+                        android:visibility="invisible" >
+                    </LinearLayout>
+                </ScrollView>
+
+                <ScrollView
+                    android:id="@+id/scrollautresmissionlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <LinearLayout
+                        android:id="@+id/autresmissionlayout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:isScrollContainer="true"
+                        android:orientation="vertical"
+                        android:visibility="invisible" >
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+        </RelativeLayout>
+    </com.tcheckit.ExtendedSlidingDrawer>
+
+    <include layout="@layout/activity_menu_bas" />
+
+    <ImageView
+        android:id="@+id/imageButtonReglages"
+        android:layout_width="67dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-20dip"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/hello"
+        android:onClick="goMain"
+        android:src="@drawable/img_center" />
+
+</RelativeLayout>

@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="top"
+    android:layout_marginLeft="0dp"
+    android:layout_marginRight="0dp"
+    android:layout_marginTop="0dp"
+    android:background="#ffffff"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_weight="3"
+        android:background="#000000"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/desc"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/textViewQuestionnaire"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_weight="3"
+        android:background="#000000"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/quest"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textSize="12dp"
+         />
+
+    <TextView
+        android:id="@+id/textViewAutres"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_weight="3"
+        android:background="#000000"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/other"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textSize="12dp"
+         />
+
+</LinearLayout>

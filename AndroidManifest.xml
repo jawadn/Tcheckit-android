@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tcheckit"
+    android:versionCode="32"
+    android:versionName="@string/tcheckit_version" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="14" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:logo="@drawable/ic_launcher"
+        android:screenOrientation="portrait"
+        android:theme="@android:style/Theme.NoTitleBar"
+        android:largeHeap="true" >
+       <!--  <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" /> -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+
+        <activity
+            android:name="com.tcheckit.PresentationActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tcheckit.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimTheme" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimTheme" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.TestActivity"
+            android:label="@string/title_activity_pres1"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimTheme" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.MonCompteActivity"
+            android:label="@string/title_activity_mon_compte"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimTheme" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.PresActivity"
+            android:label="@string/title_activity_pres"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.SlidingActivity"
+            android:label="@string/title_activity_sliding"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.DisplayMessageActivity"
+            android:label="@string/title_activity_display_message" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tcheckit.MainActivity" />
+        </activity>
+        <activity android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyALHHvpjiF5OKc5wcdlFPoKuUE4_fbypSU" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="5089000" />
+
+        <uses-library
+            android:name="com.google.android.maps"
+            android:required="true" />
+
+        <activity
+            android:name="com.tcheckit.MonPorteMonnaieActivity"
+            android:label="@string/title_activity_mon_porte_monnaie"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimTheme" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.ReglagesActivity"
+            android:label="@string/title_activity_reglages"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimTheme" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.AutresActivity"
+            android:label="@string/title_activity_autres"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimTheme" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.MissionActivity"
+            android:label="@string/title_activity_mission" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.MissionDescriptionActivity"
+            android:label="@string/title_activity_mission_description" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.MissionQuestionnaireActivity"
+            android:label="@string/title_activity_mission_questionnaire" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.MissionAutreActivity"
+            android:label="@string/title_activity_mission_autre" >
+        </activity>
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateUnspecified" />
+        <activity
+            android:name="com.tcheckit.LoginMailActivity"
+            android:label="@string/title_activity_login_mail" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.MenuBasActivity"
+            android:label="@string/title_activity_menu_bas" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.ContactActivity"
+            android:label="@string/title_activity_contact" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.CreateAccountActivity"
+            android:label="@string/title_activity_create_account" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.ReinitMdpActivity"
+            android:label="@string/title_activity_reinit_mdp" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.MissionMenuActivity"
+            android:label="@string/title_activity_mission_menu" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.MonCompteBanqueActivity"
+            android:label="@string/title_activity_mon_compte_banque" >
+        </activity>
+        <activity
+            android:name="com.tcheckit.MonComptePaypalActivity"
+            android:label="@string/title_activity_mon_compte_paypal" >
+        </activity>
+    </application>
+
+    <uses-permission android:name="com.tcheckit.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.tcheckit.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+</manifest>

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Tcheck\'it</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_display_message">Tcheckit</string>
+    <string name="mapKey">AIzaSyB0na1JIQV1BpFcRXUu84MlJK_EpQ4-_p8</string>
+    <string name="hello">Hello World, SlidingDrawerActivity!</string>
+    <string name="sliding_drawer">I am a SlidingDrawer!</string>
+    <string name="normal_tray">Normal Tray</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="inscription">Not registered? Register .</string>
+    <string name="title_activity_sliding">SlidingActivity</string>
+    <string name="title_activity_pres1">Pres1Activity</string>
+    <string name="title_activity_pres2">Pres2Activity</string>
+    <string name="title_activity_pres">PresActivity</string>
+    <string name="title_activity_pres3">Pres3Activity</string>
+    <string name="title_activity_accueil">AccueilActivity</string>
+    <string name="title_activity_mon_compte">MonCompteActivity</string>
+    <string name="title_activity_mon_porte_monnaie">MonPorteMonnaieActivity</string>
+    <string name="title_activity_reglages">ReglagesActivity</string>
+    <string name="title_activity_autres">AutresActivity</string>
+    <string name="sauvegardez">Save your information</string>
+
+    <string-array name="sexe_arrays">
+        <item></item>
+        <item>HOMME</item>
+        <item>FEMME</item>
+    </string-array>
+
+    <string name="title_activity_mission">MissionActivity</string>
+    <string name="title_activity_mission_description">MissionDescriptionActivity</string>
+    <string name="title_activity_mission_questionnaire">MissionQuestionnaireActivity</string>
+    <string name="title_activity_mission_autre">MissionAutreActivity</string>
+    <string name="login">LOGIN</string>
+    <string name="instructions">instructions</string>
+    <string name="logout">LOGOUT</string>
+    <string name="app_id">1450767531821347</string>
+    <string name="title_activity_login_mail">LoginMailActivity</string>
+    <string name="title_activity_menu_bas">MenuBasActivity</string>
+    <string name="title_activity_contact">ContactActivity</string>
+    <string name="title_activity_create_account">CreateAccountActivity</string>
+    <string name="title_activity_reinit_mdp">ReinitMdpActivity</string>
+    <string name="title_activity_mission_menu">MissionMenuActivity</string>
+    <string name="title_activity_mon_compte_banque">MonCompteBanqueActivity</string>
+    <string name="title_activity_mon_compte_paypal">MonComptePaypalActivity</string>
+    <string name="pas_encore_inscrit"><u>Not registered? Sign up</u></string>
+    <string name="mot_de_pass_oublie"><u>Forgot your password?</u></string>
+    <string name="accepter_cgu">I have read and accept the <u>Terms</u></string>
+    <string name="thumbnail_id"><u>155253251</u></string>
+    <string name="tcheckit_version">1.2</string>
+    
+    <!-- MainActivity.java -->
+	
+	<string name="loading_mission_list">Loading the list of missions</string>
+	
+	<string name="accept_mission">ACCEPT AND BEGIN THE MISSION</string>
+	
+	<string name="publish_on_fb">PUBLISH ON FACEBOOK</string>
+	
+	<string name="next">next</string>
+	
+	<string name="take_picture">TAKE A PICTURE</string>
+	
+	<string name="choose_photo">CHOOSE A PHOTO</string>
+	
+	<string name="previous">PREVIOUS</string>
+	
+	<string name="mission_success">CONGRATULATIONS , YOU HAVE COMPLETED THE MISSION !</string>
+	
+	<string name="ans_alert">Make sure your answers correspond to the application, you can not go back.</string>
+	
+	<string name="confirm">CONFIRM.</string>
+
+	<string name="login_register_msg">To continue , please log in or register now .</string>
+	<string name="later">later</string>
+	
+	<string name="sign_in">Sign in</string>
+	
+	<string name="loading">Loading</string>
+	
+	<string name="sending_data">Sending data</string>
+	
+	<string name="no_internet">No active internet connection</string>
+	
+	<string name="fb_not_installed">Facebook app not installed!</string>
+	
+	<string name="internet_required">You must have internet access to use the application</string>
+	
+	<string name="gps_active_msg">We can not get to you geotag. Check your settings in the GPS in your phone is activated.</string>
+	    
+	<string name="mission_reserve_title">Reserve the mission</string>
+	<string name="mission_reserve_error">Your request for preservation of the mission could not succeed. Thank you try shortly.</string>
+	<string name="popup_desc_link">Read mission\'s description</string>
+	
+    <!-- MonPorteMonnaieActivity -->
+	<string name="transfer_request">Transfer request !</string>
+	<string name="transfer_request_failure">Your transfer request has not been taken into account. A minimum of 10 € is required before requesting a transfer.</string>
+	<string name="transfer_request_success">Your transfer request has been taken into account. You will receive an email confirmation and the amount in your account in a time of 5 days</string>
+	<string name="continue_msg">Continue</string>
+	<string name="transfer_request_contact">Your transfer request has not been addressed , please contact us on contact@tcheckit.com .</string>
+	<string name="technical_problem">A technical problem occurred , please again in a few minutes or contact us on contact@tcheckit.com .</string>
+	
+	<!-- Reglages Activity -->
+	<string name="action_not_allowed">This action is not allowed .</string>
+	
+	<!-- ReInitMdpActivity -->
+	<string name="email_required">You must enter an email address</string>
+	<string name="error_reset">Error reset</string>
+	<string name="address_not_exist">This address does not exist</string>
+	
+	<!-- MenuBasActivity -->
+	
+	<!-- LoginMailActivity -->
+	<string name="alert">alert</string>
+	<string name="close">Close</string>
+	
+	<!-- LoginActivity -->
+	<string name="error_msg_title">Error</string>
+	<string name="error_msg">Unable to contact the server Tcheck\'it . Please excuse, the technical teams do their best to solve this problem.</string>
+	<string name="connecting">Connexion to Tcheck\'it</string>
+	<string name="internet_req">You must have an internet to use the app.</string>
+	
+	<!--  activity_accueil.xml-->
+	<string name="app_pays">APPLICATION that pays you .</string>
+	
+	<!-- activity_autres.xml -->
+	<string name="share_with_friends">Share with friends</string>
+	<string name="visit_website">Visit our website</string>
+	<string name="terms_of_use">Terms of use</string>
+	<string name="how_it_works">How it works</string>
+	<string name="contact_us">Contact us</string>
+	
+	<!--activity_contact.xml  -->
+	<string name="name">NAME:</string>
+	<string name="first_name">first name :</string>
+	<string name="email">E-mail:</string>
+	<string name="subject">subject:</string>
+	<string name="message">Message:</string>
+	<string name="send">send</string>
+	<string name="back">BACK</string>
+	
+	<!--activity_create_account  -->
+	<string name="create_profile">CREATE YOUR PROFILE</string>
+	<string name="password">Password</string>
+	<string name="confirmation">Confirmation</string>
+	<string name="create">CREATE</string>
+	<string name="back_home">BACK TO HOME</string>
+	
+	<!--activity_display_message  -->
+	<string name="button">Button</string>
+	
+	<!--activity_login_mail  -->
+	<string name="connection">CONNECTION</string>
+	<string name="incorrect_password">Login or password incorrect</string>
+	<string name="validate">VALIDATE</string>
+	
+	
+	<!--activity_login  -->
+	<string name="login_with_fb">Login with Facebook</string>
+	<string name="login_with_email">Login with email</string>
+	<string name="test_tcheck">Test Tcheckit</string>
+	
+	<!--activity_menu_bas  -->
+	<string name="my_account">My account</string>
+	<string name="my_wallet">My wallet</string>
+	<string name="settings">Settings</string>
+	<string name="other">Other</string>
+	
+	<!--activity_mission_menu  -->
+	<string name="desc">Description</string>
+	<string name="quest">Questionnaire</string>
+	
+	<!--activity_mon_compete_banque  -->
+	<string name="bank_account_title">YOUR BANK ACCOUNT</string>
+	<string name="bank_account_msg">In order to get your winnings, thank you provide your bank account .</string>
+	<string name="iban">LOGIN IBAN</string>
+	<string name="bic">LOGIN BIC</string>
+	<string name="info_change">Your can change your information any time.</string>
+	<string name="confidential">They are also strictly confidential and will remain so.</string>
+	<string name="register">REGISTER</string>
+	
+	<!--activity_mon_compete_paypal  -->
+	<string name="paypal_acc">YOUR PAYPAL ACCOUNT</string>
+	<string name="paypal_acc_msg">In order to get your winnings, thank you provide your paypal account.</string>
+	<string name="ident">LOGIN:</string>
+	
+	<!--activity_mon_compete.xml  -->
+	<string name="country">FRANCE</string>
+	<string name="dob">Date of birth :</string>
+	<string name="gender">Gender:</string>
+	<string name="postal_code">Postal Code :</string> 
+	<string name="phone">Phone:</string>
+	<string name="save">Save your information</string>
+	
+	<!--acttivity_mon_porte_monnaie.xml  -->
+	<string name="point_waiting">Point(s) waiting</string>
+	<string name="balance_euros">Balance in euros</string>
+	<string name="balance_points">Balance Points</string>
+	<string name="euro_waiting">Euro(s) waiting</string>
+	<string name="no_of_missions">Total number of missions</string>
+	<string name="total_euro">Total euro(s)</string>
+	<string name="transfer_req">Request the transfer to my account</string>
+	
+	<!--presentation_2  -->
+	<string name="missions">MISSIONS</string>
+	
+	<!--presentation3  -->
+	<string name="paid">PAID</string>
+	
+	<!--presentation4  -->
+	<string name="around">AROUND YOU .</string>
+	
+	<!-- presentation5 -->
+	<string name="startup">Start up ?</string>
+	
+	<!--activity_relages  -->
+	<string name="perimeter">Perimeter of TCHECKS :</string>
+	<string name="off">Désactivé</string>
+	<string name="scope">SCOPE OF FILTER TCHECKS</string>
+	<string name="push_notifi">PUSH NOTIFICATION</string>
+	<string name="bank_state_req">In order to get your winnings, thank you provide your bank statement of identity </string>
+	<string name="bank_acc">Your bank account</string>
+	
+	<!--activity_reinit_mdp  -->
+	<string name="reset">RESET</string>
+	
+</resources>
