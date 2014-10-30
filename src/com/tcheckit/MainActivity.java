@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -90,9 +92,11 @@ import com.fortutech.tcheckit.ejb.sessions.Question;
 import com.fortutech.tcheckit.ejb.sessions.QuestionInputNumber;
 import com.fortutech.tcheckit.ejb.sessions.QuestionInputText;
 import com.fortutech.tcheckit.ejb.sessions.QuestionMultipleChoice;
+import com.fortutech.tcheckit.ejb.sessions.QuestionPhoto;
 import com.fortutech.tcheckit.ejb.sessions.QuestionUniqueChoice;
 import com.fortutech.tcheckit.ejb.sessions.Sign;
 import com.fortutech.tcheckit.ejb.sessions.TcheckitMobileBean;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -102,6 +106,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.tcheckit.utils.Configuration;
+import com.tcheckit.utils.GcmUtility;
 import com.tcheckit.utils.NumberUtils;
 import com.tcheckit.utils.UiUtils;
 import com.tcheckit.vo.DataSession;
@@ -130,6 +135,18 @@ public class MainActivity extends MenuBasActivity {
 		setContentView(R.layout.activity_main);
 		uiHelper = new UiLifecycleHelper(this, callback);
 		uiHelper.onCreate(savedInstanceState);
+		GcmUtility gcmUtility = new GcmUtility();
+		GoogleCloudMessaging gcm;
+		 if (gcmUtility.checkPlayServices(this)) {
+	            gcm = GoogleCloudMessaging.getInstance(this);
+	            String regId = gcmUtility.getRegistrationId(getApplicationContext());
+	            
+	            if (regId.isEmpty()) {
+	                gcmUtility.registerInBackground(getApplicationContext());
+	            }
+	        } else {
+	            Log.i("MainActivity", "No valid Google Play Services APK found.");
+	        }
 		/*
 		 * try { PackageInfo info =
 		 * getPackageManager().getPackageInfo(this.getPackageName(),
@@ -542,7 +559,61 @@ public class MainActivity extends MenuBasActivity {
 								questionnairemissionlayout.addView(rg);
 								qc = new QuestionContainer(DataSession.getInstance().getConsumer().getId(), mi.getId(), qu.getId(), sign.getId(), rg);
 								listQuestionContainer.add(qc);
-							}
+							}else if (mi.getListQuestions()[i].getClass().equals(QuestionPhoto.class)) {
+								final QuestionPhoto qu = (QuestionPhoto) mi.getListQuestions()[i];
+								String s = qu.getOneTitle();
+								TextView tv = new TextView(view.getContext());
+								tv.setText(s);
+								tv.setTextColor(Color.BLACK);
+								tv.setLayoutParams(layoutparam);
+								questionnairemissionlayout.addView(tv);
+								
+								Button butTakePicture = new Button(view.getContext());
+								butTakePicture.setText(R.string.take_picture);
+								ll = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, UiUtils.getUiDp(50, view.getContext()));
+								ll.setMargins(20, 20, 20, 0);
+
+								butTakePicture.setTextColor(Color.WHITE);
+								butTakePicture.setBackgroundResource(R.drawable.bg_btn_orange);
+								butTakePicture.setLayoutParams(ll);
+
+								butTakePicture.setOnClickListener(new OnClickListener() {
+
+									@Override
+									public void onClick(View v) {
+
+										Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+										cameraIntent.putExtra("questionId", qu.getId());
+										// cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+										// outputFileUri);
+
+										if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+											// Create the File where the photo should go
+											File photoFile = null;
+											try {
+												photoFile = createImageFile();
+											} catch (IOException ex) {
+												// Error occurred while creating the File
+												ex.printStackTrace();
+
+											}
+											// Continue only if the File was successfully
+											// created
+											if (photoFile != null) {
+												cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+												startActivityForResult(cameraIntent, TAKE_PHOTO_CODE);
+											}
+										}
+
+										// startActivityForResult(cameraIntent, 0);
+
+									}
+								});
+								qc = new QuestionContainer(DataSession.getInstance().getConsumer().getId(), mi.getId(), qu.getId(), sign.getId(), butTakePicture);
+
+								listQuestionContainer.add(qc);
+								questionnairemissionlayout.addView(butTakePicture);
+							} 
 							Question q = mi.getListQuestions()[i];
 							DataSession.getInstance().setQuestionContainer(listQuestionContainer.toArray(new QuestionContainer[listQuestionContainer.size()]));
 						}
@@ -1463,34 +1534,74 @@ public class MainActivity extends MenuBasActivity {
 			 * catch (Exception e) { e.printStackTrace(); } finally { try {
 			 * out.close(); } catch (Exception ex) { ex.printStackTrace(); } }
 			 */
-			final BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inJustDecodeBounds = true;
-			BitmapFactory.decodeFile(mCurrentPhotoPath, options);
-			int height = options.outHeight;
-			int width = options.outWidth;
+			if(data.getExtras().get("questionId") != null){
+				Long questionId = (Long)data.getExtras().get("questionId"); 
+				final BitmapFactory.Options options = new BitmapFactory.Options();
+				options.inJustDecodeBounds = true;
+				BitmapFactory.decodeFile(mCurrentPhotoPath, options);
+				int height = options.outHeight;
+				int width = options.outWidth;
 
-			double y = (200.0 / height) * width;
-			options.inSampleSize = calcSize(options, 200, y);
+				double y = (200.0 / height) * width;
+				options.inSampleSize = calcSize(options, 200, y);
 
-			options.inJustDecodeBounds = false;
-			Bitmap btm = BitmapFactory.decodeFile(mCurrentPhotoPath, options);
+				options.inJustDecodeBounds = false;
+				Bitmap btm = BitmapFactory.decodeFile(mCurrentPhotoPath, options);
 
-			Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-			Uri outputFileUri = Uri.fromFile(new File(mCurrentPhotoPath));
-			mediaScanIntent.setData(outputFileUri);
-			sendBroadcast(mediaScanIntent);
-			ImageView photo = new ImageView(getApplicationContext());
-			// photo.setImageBitmap(imageBitmap);
-			photo.setImageBitmap(btm);
-			LinearLayout.LayoutParams photoLayout2 = new LinearLayout.LayoutParams(200, 200);
-			photoLayout2.setMargins(20, 10, 0, 10);
-			photo.setLayoutParams(photoLayout2);
-			LinearLayout thumbnails = (LinearLayout) findViewById(R.string.thumbnail_id);
-			thumbnails.addView(photo);
-			QuestionContainer qc2 = new QuestionContainer(DataSession.getInstance().getConsumer().getId(), DataSession.getInstance().getMission().getId(), null, DataSession
-					.getInstance().getSign().getId(), mCurrentPhotoPath);
-			DataSession.getInstance().addQuestionContainer(qc2);
+				Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+				Uri outputFileUri = Uri.fromFile(new File(mCurrentPhotoPath));
+				mediaScanIntent.setData(outputFileUri);
+				sendBroadcast(mediaScanIntent);
+				ImageView photo = new ImageView(getApplicationContext());
+				// photo.setImageBitmap(imageBitmap);
+				photo.setImageBitmap(btm);
+				LinearLayout.LayoutParams photoLayout2 = new LinearLayout.LayoutParams(
+						200, 200);
+				photoLayout2.setMargins(20, 10, 0, 10);
+				photo.setLayoutParams(photoLayout2);
+				LinearLayout thumbnails = (LinearLayout) findViewById(R.string.thumbnail_id);
+				thumbnails.addView(photo);
+				QuestionContainer qc2 = new QuestionContainer(DataSession
+						.getInstance().getConsumer().getId(), DataSession
+						.getInstance().getMission().getId(), questionId, DataSession
+						.getInstance().getSign().getId(), mCurrentPhotoPath);
+				DataSession.getInstance().addQuestionContainer(qc2);
 
+			} else {
+				final BitmapFactory.Options options = new BitmapFactory.Options();
+				options.inJustDecodeBounds = true;
+				BitmapFactory.decodeFile(mCurrentPhotoPath, options);
+				int height = options.outHeight;
+				int width = options.outWidth;
+
+				double y = (200.0 / height) * width;
+				options.inSampleSize = calcSize(options, 200, y);
+
+				options.inJustDecodeBounds = false;
+				Bitmap btm = BitmapFactory.decodeFile(mCurrentPhotoPath,
+						options);
+
+				Intent mediaScanIntent = new Intent(
+						Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+				Uri outputFileUri = Uri.fromFile(new File(mCurrentPhotoPath));
+				mediaScanIntent.setData(outputFileUri);
+				sendBroadcast(mediaScanIntent);
+				ImageView photo = new ImageView(getApplicationContext());
+				// photo.setImageBitmap(imageBitmap);
+				photo.setImageBitmap(btm);
+				LinearLayout.LayoutParams photoLayout2 = new LinearLayout.LayoutParams(
+						200, 200);
+				photoLayout2.setMargins(20, 10, 0, 10);
+				photo.setLayoutParams(photoLayout2);
+				LinearLayout thumbnails = (LinearLayout) findViewById(R.string.thumbnail_id);
+				thumbnails.addView(photo);
+				QuestionContainer qc2 = new QuestionContainer(DataSession
+						.getInstance().getConsumer().getId(), DataSession
+						.getInstance().getMission().getId(), null, DataSession
+						.getInstance().getSign().getId(), mCurrentPhotoPath);
+				DataSession.getInstance().addQuestionContainer(qc2);
+
+			}
 			// }
 			break;
 		case 1: // Choisir une photo
@@ -1699,17 +1810,20 @@ public class MainActivity extends MenuBasActivity {
 				long missionId = 0; 
 				long consumerId = DataSession.getInstance().getConsumer().getId();
 				long signId = 0;
+				Map<Long,List<String>> questionImageListMap = null;
+				JSONObject ansJsonObj;
 				
 				for (QuestionContainer question : QuestionContainerTableau) {
 
 					if (DataSession.getInstance().getConsumer() != null) {
 						
-						JSONObject ansJsonObj = new JSONObject();
+						ansJsonObj = new JSONObject();
 						String type = null;
 						String responseString = null;
 						missionId = question.getIdMission(); 
 						signId = question.getIdSign();
-								
+						questionImageListMap = new HashMap<Long,List<String>>();	
+						
 						if (question.getView() == null && question.getImagePath() != null) {
 							// ImageView image = (ImageView) question.getView();
 
@@ -1741,6 +1855,50 @@ public class MainActivity extends MenuBasActivity {
 							String imageString = Base64.encodeToString(byteArray, Base64.DEFAULT);
 							byteArray = null;
 							tb.uploadImages(imageString, question.getIdMission(), question.getIdConsumer(), question.getIdSign());
+							btm.recycle();
+							btm = null;
+							stream = null;
+							byteArray = null;
+							System.gc();
+							// scaledBitmap = null;
+						}else if (Long.valueOf(question.getIdQuestion()) != null && question.getImagePath() != null) {
+							// ImageView image = (ImageView) question.getView();
+
+							// image.setDrawingCacheEnabled(true);
+							// Bitmap bitmap = ((BitmapDrawable)
+							// image.getDrawable()).getBitmap();
+							final BitmapFactory.Options options = new BitmapFactory.Options();
+							options.inJustDecodeBounds = true;
+							BitmapFactory.decodeFile(question.getImagePath(), options);
+							int height2 = options.outHeight;
+							int width2 = options.outWidth;
+							double y2 = (800.0 / width2) * height2;
+							options.inSampleSize = calcSize(options, y2, 800);
+
+							options.inJustDecodeBounds = false;
+							Bitmap btm = null;
+
+							btm = BitmapFactory.decodeFile(question.getImagePath(), options);
+
+							// Bitmap scaledBitmap =
+							// Bitmap.createScaledBitmap(btm, 800, (int) y2,
+							// true);
+							// btm = null;
+							ByteArrayOutputStream stream = new ByteArrayOutputStream();
+							btm.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+							btm.recycle();
+							byte[] byteArray = stream.toByteArray();
+							stream = null;
+							String imageString = Base64.encodeToString(byteArray, Base64.DEFAULT);
+							byteArray = null;
+							tb.uploadImages(imageString, question.getIdMission(), question.getIdConsumer(), question.getIdSign());
+							
+							List<String> imageList = questionImageListMap.get(question.getIdQuestion());
+							if(imageList == null){
+								imageList = new ArrayList<String>();
+							}
+							imageList.add(imageString);
+							questionImageListMap.put(question.getIdQuestion(), imageList);
 							btm.recycle();
 							btm = null;
 							stream = null;
@@ -1830,6 +1988,20 @@ public class MainActivity extends MenuBasActivity {
 					
 				}
 				
+				for(Long questionId : questionImageListMap.keySet()){
+					ansJsonObj = new JSONObject();
+					ansJsonObj.put("qId", questionId);
+					ansJsonObj.put("type", "photo");
+					JSONArray imgStringJsonArray = new JSONArray();
+				    for(String questionImageString : questionImageListMap.get(questionId)){
+				    	JSONObject imageJson = new JSONObject();
+				    	imageJson.put("imageString", questionImageString);
+				    	imgStringJsonArray.put(imageJson);
+					}
+				   
+				    ansJsonObj.put("response", imgStringJsonArray);
+				    jsonArray.put(ansJsonObj);
+				}
 				jsonObject.put("responses", jsonArray);
 				System.out.println("----------Mission question response json-------" + jsonObject.toString());
 				tb.sendCompleteMissionResponse(missionId, consumerId, signId ,jsonObject.toString());

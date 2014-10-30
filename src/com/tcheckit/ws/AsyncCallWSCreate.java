@@ -1,8 +1,16 @@
 package com.tcheckit.ws;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -36,7 +44,28 @@ public class AsyncCallWSCreate extends AsyncTask<String, Void, Void> {
 			if (ua != null) {
 				if(DataSession.getInstance().getFacebookid() != null){
 					DataSession.getInstance().getFacebookConsumer().setId(ua.getId());
-					//ua.setOnePerson(tb.editConsumer(DataSession.getInstance().getFacebookConsumer()));
+					
+					Consumer fbConsumer = DataSession.getInstance().getFacebookConsumer();
+					
+					JSONObject fbJson = new JSONObject();
+					fbJson.put("id",fbConsumer.getId());
+					fbJson.put("firstName", fbConsumer.getFirstName());
+					fbJson.put("lastName", fbConsumer.getName());
+					fbJson.put("email", fbConsumer.getEmail());
+					fbJson.put("dob",fbConsumer.getBirthday().getTimeInMillis());
+					fbJson.put("birthPlace",fbConsumer.getBirthplace());
+					
+					URL picUrl = new URL("https://graph.facebook.com/"+DataSession.getInstance().getFacebookid()+"/picture");
+					HttpURLConnection urlConnection = (HttpURLConnection) picUrl.openConnection();
+					InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+					byte[] byteArray = new byte[in.available()];
+					in.read(byteArray);
+					urlConnection.disconnect();
+					String base64imageString = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        			
+					fbJson.put("profilepic", base64imageString);
+					
+					tb.editConsumerJson(fbJson.toString());
 				}
 				DataSession.getInstance().setConsumer((Consumer) ua.getOnePerson());
 				result = true;

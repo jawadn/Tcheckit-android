@@ -57,6 +57,9 @@ public class Question extends com.fortutech.tcheckit.ejb.sessions.EntityMother i
 						} else if (questionGenerique.getName().equals("questionInputText")) {
 							QuestionInputText ms = new QuestionInputText(questionGenerique);
 							list.add(ms);
+						}else if (questionGenerique.getName().equals("questionPhoto")) {
+							QuestionPhoto ms = new QuestionPhoto(questionGenerique);
+							list.add(ms);
 						}
 
 					}

@@ -1,9 +1,15 @@
 package com.tcheckit;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import org.json.JSONObject;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -17,6 +23,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -382,7 +389,32 @@ public class LoginActivity extends Activity {
 				if (facebookId != null) {
 					ua = tb.getUserFacebookByLogin(DataSession.getInstance().getFacebookid());
 					DataSession.getInstance().getFacebookConsumer().setId(ua.getId());
-					//ua = tb.editConsumer(DataSession.getInstance().getFacebookConsumer());
+					
+					URL picUrl = new URL("https://graph.facebook.com/"+facebookId+"/picture");
+					HttpURLConnection urlConnection = (HttpURLConnection) picUrl.openConnection();
+					InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+					byte[] byteArray = new byte[in.available()];
+					in.read(byteArray);
+					urlConnection.disconnect();
+					String base64imageString = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        
+					Consumer fbConsumer = DataSession.getInstance().getFacebookConsumer();
+					
+					JSONObject fbJson = new JSONObject();
+					fbJson.put("id",fbConsumer.getId());
+					fbJson.put("firstName", fbConsumer.getFirstName());
+					fbJson.put("lastName", fbConsumer.getName());
+					fbJson.put("email", fbConsumer.getEmail());
+					if(fbConsumer.getBirthday() != null){
+					 fbJson.put("dob",fbConsumer.getBirthday().getTimeInMillis());
+					}else{
+						fbJson.put("dob","");
+					}
+					fbJson.put("birthPlace",fbConsumer.getBirthplace());
+					fbJson.put("profilepic", base64imageString);
+					
+					tb.editConsumerJson(fbJson.toString());
+					
 					
 				} else if (loginMail != null && mdpMail != null) {
 					UserAccount tmp = tb.getUserAccountByLoginByPassword(loginMail, mdpMail);

@@ -11,6 +11,7 @@ import org.ksoap2.serialization.MarshalFloat;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpResponseException;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.location.Location;
@@ -267,6 +268,36 @@ public final class TcheckitMobileBean {
 		
 		return null;
 		
+	}
+	
+	public boolean editConsumerJson(String fbConsumerJson) throws Exception {
+		try {
+			SoapObject _client = new SoapObject("http://sessions.ejb.tcheckit.fortutech.com/", "editConsumerJSON");
+			_client.addProperty("arg0", fbConsumerJson);
+			SoapSerializationEnvelope _envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+			
+			_envelope.implicitTypes = true;
+			_envelope.dotNet = false;
+			//_envelope.addMapping("http://sessions.ejb.tcheckit.fortutech.com/consumer", "Consumer", Consumer.class);
+			_envelope.bodyOut = _client;
+	
+			HttpTransportSE _ht = new HttpTransportSE(Configuration.getWsUrl());
+			//_ht.getServiceConnection().setRequestProperty("Connection", "close");
+			_ht.call("http://sessions.ejb.tcheckit.fortutech.com/editConsumerJSON", _envelope);
+			
+			//SoapObject soapObj = (SoapObject) _envelope.getResponse();
+			
+			return Boolean.parseBoolean(((SoapPrimitive) _envelope.getResponse()).getValue().toString());
+			/*
+			 * for (int _i = 0; _i < _len; _i++) { _returned.setProperty(_i,
+			 * _ret.getProperty(_i)); }
+			 */
+			
+		}catch (Exception e) {
+			Log.v("error", e.getMessage());
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	public void addPushIdentifier(com.fortutech.tcheckit.ejb.sessions.PushIdentifier arg0) throws Exception {
@@ -1049,5 +1080,23 @@ public final class TcheckitMobileBean {
 		HttpTransportSE _ht = new HttpTransportSE(Configuration.getWsUrl());
 		_ht.getServiceConnection().setRequestProperty("Connection", "close");
 		_ht.call("http://sessions.ejb.tcheckit.fortutech.com/saveResponse", soapEnvelope);
+	}
+	
+	public void sendGcmRegisterRequest(String gcmJson) throws HttpResponseException, IOException, XmlPullParserException{
+		
+		SoapObject soapClient = new SoapObject("http://sessions.ejb.tcheckit.fortutech.com/", "registerPushIdentifier");
+		soapClient.addProperty("arg0", gcmJson + "");
+		
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+		envelope.implicitTypes = true;
+		envelope.dotNet = false;
+		envelope.bodyOut = soapClient;
+		
+		HttpTransportSE _ht = new HttpTransportSE(Configuration.getWsUrl());
+		_ht.getServiceConnection().setRequestProperty("Connection", "close");
+		_ht.call("http://sessions.ejb.tcheckit.fortutech.com/registerPushIdentifier", envelope);
+		
+		
+		
 	}
 }

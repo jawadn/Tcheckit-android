@@ -49,7 +49,7 @@ public final class UserAccount extends EntityMother  implements org.ksoap2.seria
         this.login = login;
     }
 
-    public java.lang.String getLogin(java.lang.String login) {
+    public java.lang.String getLogin() {
         return this.login;
     }
 
